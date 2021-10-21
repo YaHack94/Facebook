@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Dashboard</title>
+
+    <!-- Bootstrap CSS CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <!-- Our Custom CSS -->
+    <link rel="stylesheet" href="css/style2.css">
+    <!-- Scrollbar Custom CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+
+    <!-- Font Awesome JS -->
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+
+
+
+    <div
+      class="modal fade"
+      id="publication"
+      data-mdb-backdrop="static"
+      data-mdb-keyboard="false"
+      tabindex="-1"
+      aria-labelledby="staticBackdropLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+           <h5 class="modal-title" id="staticBackdropLabel" style="font-weight: bolder;">Nouvelle publication</h5>
+
+            <button
+              type="button"
+              class="btn-close"
+              data-mdb-dismiss="modal"
+              aria-label="Close"
+            ></button>
+
+          </div>
+
+          <div class="modal-body">
+
+            
+            <%= form_with(model: @publication, url: pubcreate_path, method: "post") do |form| %>
+                
+                <div class="form-outline mb-4">
+                <%= form.label :image, "Ajouter une photo(optionnel)", class: "form-label" %>
+                <%= image_tag(@publication.image.url) if @publication.image && @publication.image.url %>
+                  <%= form.file_field :image, class: "form-control" %>
+                  
+                </div>
+
+                <div class="form-outline mb-4">
+                    <%= form.label :content, "Publication", class: "form-label" %>
+                  <%= form.text_area :content, size: "70x5", class: "form-control" %>
+                  
+                </div>
+                
+                
+              <div class="text-center">
+                <%= form.submit "Publier", class: "btn btn-success  mb-4", style: "padding-right: 50px; padding-left: 50px; font-size: 17px;" %>
+              <% end %>
+              </div>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-mdb-dismiss="modal">
+              Annuler
+            </button>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wrapper">
+        <!-- Sidebar  -->
+        <nav id="sidebar">
+            <div class="sidebar-header">
+                <h3 style="font-weight: bold;">Facebook</h3>
+            </div>
+
+            <ul class="list-unstyled components">
+                <p style="font-weight: bold;"></p>
+                <li>
+                    <a href="#pageSubmenue" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Publications</a>
+                    <ul class="collapse list-unstyled" id="pageSubmenue">
+                        <li>
+                            <a href="">Mes publications</a>
+                        </li>
+                        <li>
+                            <a href="">Voir toutes les publications</a>
+                        </li>
+                        
+                    </ul>
+                </li>
+                
+                <li>
+                    <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Mon compte</a>
+                    <ul class="collapse list-unstyled" id="pageSubmenu">
+                        <li>
+                            <a href="">Profil</a>
+                        </li>
+                        
+                        
+                    </ul>
+                </li>
+                
+
+            </ul>
+
+            <ul class="list-unstyled " style="margin-top: 250px;">
+
+                <li >
+                    <a href="" data-toggle="collapse" aria-expanded="false" class="btn btn-success" data-mdb-toggle="modal"
+                data-mdb-target="#publication">Nouvelle publication</a>
+                    
+                </li>
+                
+            </ul>
+
+            
+        </nav>
+
+        
+        <div id="content">
+
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container-fluid">
+
+                    <button type="button" id="sidebarCollapse" class="btn btn-primary">
+                        <i class="fas fa-align-left"></i>
+                        <span></span>
+                    </button>
+                    <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="fas fa-align-justify"></i>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="nav navbar-nav ml-auto">
+                            <li class="nav-item ">
+                                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true"
+                                > <%= @user.first_name %>
+      
+                                &nbsp;<%= @user.last_name %></a>
+                                    
+                            </li>&nbsp;
+                            
+                            
+
+                            <li class="nav-item">
+                                
+                                <%= button_to "Se déconnecter", destroy_path, method: :delete, class: "btn btn-warning  ", style: "padding-right:px; padding-left: px; font-size: 17px;" %>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="errors">
+                    <% if flash[:register_pub_errors]%>
+                      <% flash[:register_pub_errors].each do |error| %>
+                        <p class="alert alert-danger"> <%=error%></p>
+                      <%end%>
+                    <%end%>
+
+            </div>
+            <div class="errors">
+                    <% if flash[:register_pub_success]%>
+                      
+                        <p class="alert alert-success"> <%= flash[:register_pub_success]%></p>
+                      
+                    <%end%>
+
+            </div>
+            <div class="errors">
+                    <% if flash[:register_comment]%>
+                      
+                        <p class="alert alert-success"> <%= flash[:register_comment]%></p>
+                      
+                    <%end%>
+
+            </div>
+            <div class="errors">
+                    <% if flash[:register_comment_errors]%>
+                      <% flash[:register_comment_errors].each do |error| %>
+                        <p class="alert alert-danger"> <%=error%></p>
+                      <%end%>
+                    <%end%>
+
+            </div>
+
+
+            <%= yield :content %>
+            
+        </div>
+    </div>
+
+
+    <div
+      class="modal fade"
+      id="comment"
+      data-mdb-backdrop="static"
+      data-mdb-keyboard="false"
+      tabindex="-1"
+      aria-labelledby="staticBackdropLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+           <h5 class="modal-title" id="staticBackdropLabel" style="font-weight: bolder;">Votre commentaire</h5>
+
+            <button
+              type="button"
+              class="btn-close"
+              data-mdb-dismiss="modal"
+              aria-label="Close"
+            ></button>
+
+          </div>
+
+          <div class="modal-body">
+
+            
+            <%= form_with(url: comment_path, method: "post") do |form| %>
+                
+        
+                <div class="form-outline mb-8">
+                    
+                    <textarea class="form-control" name="comment[content]"></textarea>              
+                  
+                </div>
+                
+                <br><br>
+              <div class="text-center">
+                <%= form.submit "Commenter", class: "btn btn-success  mb-4", style: "padding-right: 50px; padding-left: 50px; font-size: 17px;" %>
+              
+              </div>
+
+            <% end %>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-mdb-dismiss="modal">
+              Annuler
+            </button>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- jQuery CDN - Slim version (=without AJAX) -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <!-- Popper.JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+    <!-- jQuery Custom Scroller CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script
+    type="text/javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.js"
+    ></script>
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#sidebar").mCustomScrollbar({
+                theme: "minimal"
+            });
+
+            $('#sidebarCollapse').on('click', function () {
+                $('#sidebar, #content').toggleClass('active');
+                $('.collapse.in').toggleClass('in');
+                $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+            });
+        });
+    </script>
+</body>
+
+</html>

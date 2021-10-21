@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title> Facebook - Connexion ou Inscription </title>
+        
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet" />
+        
+        <link
+          href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+          rel="stylesheet" />
+        
+        <link
+          href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.css"
+          rel="stylesheet" />
+    </head>
+  <body style="background-color: #F0F2F5;">
+
+    <div class="container" >
+
+      <div class="row">
+        
+        <div class="col-md-3"></div>
+
+        <div class="col-md-6">
+          <div class="text-center">
+              <img class="img-fluid" style="width: 60%; margin-bottom: -15px; margin-left: -35px;" src="https://static.xx.fbcdn.net/rsrc.php/y8/r/dF5SId3UHWd.svg" alt="Facebook">
+            </div>
+        </div>  
+      </div>
+
+      <div class="row " style="margin-top: px;">
+
+        <div class="col-md-3"></div>
+
+        <div class="col-md-6" style="margin-top: 0px; ">
+
+          <div class="card">
+
+            
+
+            <div class="card-body ">
+              <div class="errors">
+                    <% if flash[:register_errors]%>
+                      <% flash[:register_errors].each do |error| %>
+                        <p class="alert alert-danger"> <%=error%></p>
+                      <%end%>
+                    <%end%>
+
+                  </div>
+              <%= form_with(model: @user, url: signupform_path, method: "post") do |form| %>
+                <div class="row mb-4">
+
+                  <div class="col">
+                    <div class="form-outline">
+                      <%= form.text_field :first_name, class: "form-control" %>
+                      <%= form.label :first_name, "Prénoms", class: "form-label" %>
+                    </div>
+                  </div>
+
+                  <div class="col">
+                    <div class="form-outline">
+                      <%= form.text_field :last_name, class: "form-control" %>
+                      <%= form.label :last_name, "Noms", class: "form-label" %>
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="form-outline mb-4">
+                  <%= form.email_field :email, class: "form-control" %>
+                  <%= form.label :email, "Adresse e-mail", class: "form-label" %>
+                </div>
+                
+                <div class="row ">
+
+                  <div class="col">
+
+                    <div class="form-outline mb-4">
+                      <%= form.password_field :password, class: "form-control" %>
+                      <%= form.label :password, "Mot de passe", class: "form-label" %>
+                    </div>
+                  </div>
+
+                  <div class="col">
+                    <div class="form-outline ">
+                      <%= form.password_field :password_confirmation, class: "form-control" %>
+                      <%= form.label :password_confirmation, "Confirmez le mot de passe", class: "form-label" %>
+                    </div>
+                  </div>
+              </div>
+
+              <div class="form-outline mb-4">
+                  <%= form.date_field :date_of_birth, class: "form-control" %>
+                  <%= form.label :date_of_birth, "Date d'anniversaire", class: "form-label" %>
+              </div>
+
+              <div class="text-center mb-4">
+                <p style="text-align: left;">Votre sexe:</p>
+                <div class="form-check form-check-inline">
+                  <%= form.radio_button :gender, "F", class: "form-check-input" %>
+                  <%= form.label :gender_f, "Féminin" , class: "form-check-label"%>
+                </div>
+
+                <div class="form-check form-check-inline">
+                  <%= form.radio_button :gender, "M" , class: "form-check-input"%>
+                  <%= form.label :gender_m, "Masculin", class: "form-check-label" %>
+                </div>
+              </div>
+
+              <div class="text-center">
+                <%= form.submit "S'inscrire", class: "btn btn-success  mb-4", style: "padding-right: 50px; padding-left: 50px; font-size: 17px;" %>
+              <% end %>
+              </div>
+                
+
+              
+          
+            
+
+            </div>
+
+
+          </div>
+          <br>
+
+          <p class="text-center">Créer une Page pour une célébrité, un groupe ou une entreprise.</p>
+
+        </div>
+
+        <div class="col-md-3"></div>
+
+      </div>
+      
+    </div>
+    
+    <script
+    type="text/javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.js"
+    ></script>
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"></script>
+
+  </body>
+</html>

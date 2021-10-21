@@ -1,0 +1,97 @@
+<% content_for :content do %>
+
+  <% @publications.each do |publication| %>
+
+    <div class="card mb-3">
+
+        <p class="card-text mt-3">
+            &nbsp;&nbsp;&nbsp;
+          <i class="fas fa-user"></i>
+            &nbsp;
+            <% @users.each do |usere| %>
+              <% if publication.user_id == usere.id %>
+                  <%= usere.last_name %>&nbsp;
+                  <%= usere.first_name %>
+              <% end %>
+            <% end %>
+            </p>
+
+         <img
+          src="<%= publication.image %>"
+          class="card-img-top"
+          alt="..."
+        />
+        <div class="card-body">
+          
+          <p class="card-text text-center" style="margin-top: -15px;">
+            <%= publication.content %></p>
+
+          <div class="row">
+            <div class="col-6 ">
+              <p class="card-text">
+                <small class="text-muted">Publié le <%= publication.published_at %></small>
+              </p>
+              <br>
+              <div class="card-body"><h5>Commentaires</h5>
+              <% @commentaires.each do |commentaire| %>
+
+                <% if publication.id == commentaire.publication_id %>
+
+                  <div class="card-body">
+                    <i class="fas fa-user"></i> &nbsp; 
+                    <% @users.each do |useri| %>
+
+                        <% if useri.id == commentaire.user_id %>
+                          <%= useri.last_name %>
+                        <% end %>
+
+                    <% end %>
+
+                    <br>
+                      
+                        <%= commentaire.content %>
+                      
+                  </div>
+                <% end %>
+                
+
+              <% end %></div>
+            </div>
+            
+            <div class="col-6 text-end" style=" text-align: right;">
+                
+
+                <% if publication.user_id == @user.id %>
+                      <button class="btn btn-warning" data-mdb-toggle="modal"
+                      data-mdb-target="#comment">Commenter</button>
+
+                        <br><br><%= button_to 'Modifier', editform_path(publication), class: "btn btn-success" %>
+                  &nbsp;
+                  
+                  <%= button_to 'Supprimer', destroypub_path(publication), class: "btn btn-danger",  :method => :delete, :confirm => "Are you sure?" %>
+                        
+                <% else %>
+
+                  <button class="btn btn-warning" data-mdb-toggle="modal"
+                      data-mdb-target="#comment">Commenter</button>
+
+                <% end %>
+                
+                
+
+            </div>
+
+
+          </div>
+
+          
+
+        </div>
+    </div>
+    <br>
+    <hr>
+    <br><br>
+
+  <% end %>
+
+<% end %>
