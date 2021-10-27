@@ -81,6 +81,8 @@ test:
 #
 production:
   <<: *default
-  database: facebook_production
-  username: facebook
-  password: <%= ENV['FACEBOOK_DATABASE_PASSWORD'] %>
+  host: ec2-50-19-210-145.compute-1.amazonaws.com
+  database: d6d5icunqtbg6u
+  username: wjypkershedpiw
+  port: 5432
+  password: 86f32fb1a507de8ecdeb8ec9e752f2c5fa9d063f1ea022e6e4db1985e60baa63
