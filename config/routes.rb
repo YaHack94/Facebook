@@ -11,8 +11,8 @@ Rails.application.routes.draw do
   post '/commentaire', to: 'accounts#comment', as: 'comment'
   get '/dashboard', to: 'accounts#dashboard', as: 'dashboard'
   delete '/logout', to: 'accounts#destroy', as: 'destroy'
-  #patch '/edit/publication/', to: 'accounts#edit_pub', as: 'editpub'
-  #post '/edit/publication/', to: 'accounts#update', as: 'editform'
+  get 'publication/confirm', to: 'accounts#confirm', as: 'confirm'
+  post 'publication/confirm', to: 'accounts#confirm', as: 'confirme'
 
 
   delete '/publication/:id', to: 'accounts#destroy_pub', as: 'destroypub'

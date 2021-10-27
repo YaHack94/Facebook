@@ -6,7 +6,7 @@ class AccountsController < ApplicationController
 
 		@user = User.new
 		render "accounts/index"
-		
+
 	end
 
 
@@ -50,11 +50,11 @@ class AccountsController < ApplicationController
   		redirect_to '/dashboard'
   	else
   		render "accounts/edit"
-  	end 
+  	end
   end
 
 
-  
+
 
 
 
@@ -66,13 +66,22 @@ class AccountsController < ApplicationController
 		@comment = Commentaire.new
 		@commentaires = Commentaire.all
 		@users = User.all
-		render "accounts/dashboard", layout: "layout" 
-		
+		render "accounts/dashboard", layout: "layout"
+
 	end
+
+
+
 
 	def create_publication
 		@publication = Publication.new(pub_params)
-		@publication.user_id = session[:current_user_id]
+		render "accounts/confirm"
+	end
+
+	def confirm
+    @publication = Publication.new(pub_params)
+
+    @publication.user_id = session[:current_user_id]
 		@publication.published_at = Time.now
 
 		if @publication.save
@@ -83,7 +92,7 @@ class AccountsController < ApplicationController
       flash[:register_pub_errors] = @publication.errors.full_messages
       redirect_to '/dashboard'
     end
-	end
+  end
 
 
 	def comment
@@ -100,10 +109,10 @@ class AccountsController < ApplicationController
       flash[:register_comment_errors] = @comment.errors.full_messages
       redirect_to '/dashboard'
     end
-    
+
   end
 
-  
+
 
   def destroy_pub
     @publication = Publication.find(params[:id])
@@ -137,6 +146,6 @@ class AccountsController < ApplicationController
     def comment_params
       params.require(:comment).permit(:content )
     end
-	  
+
 
 end
