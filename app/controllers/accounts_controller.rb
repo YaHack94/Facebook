@@ -43,6 +43,27 @@ class AccountsController < ApplicationController
 
   end
 
+  def create_publication
+		@publication = Publication.new(pub_params)
+		render "accounts/confirm"
+	end
+
+	def confirm
+    @publication = Publication.new(pub_params)
+
+    @publication.user_id = session[:current_user_id]
+		@publication.published_at = Time.now
+
+		if @publication.save
+			session[:current_publication_id] = @publication.id
+			flash[:register_pub_success] = "Post publié avec succès"
+      redirect_to '/dashboard'
+    else
+      flash[:register_pub_errors] = @publication.errors.full_messages
+      redirect_to '/dashboard'
+    end
+  end
+
 
 	private
 
@@ -52,6 +73,10 @@ class AccountsController < ApplicationController
 
 		def login_params
       params.require(:login).permit(:email, :password )
+    end
+
+    def pub_params
+      params.require(:publication).permit(:image, :content)
     end
 
 end
