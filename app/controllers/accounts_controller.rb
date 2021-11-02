@@ -83,6 +83,21 @@ class AccountsController < ApplicationController
   	end
   end
 
+  def comment
+		@comment = Commentaire.new(comment_params)
+		@comment.user_id = session[:current_user_id]
+		@comment.published_at = Time.now
+		@comment.publication_id = session[:current_publication_id]
+
+		if @comment.save
+			flash[:register_comment] = "Commentaire publié avec succès"
+      redirect_to '/dashboard'
+    else
+      flash[:register_comment_errors] = @comment.errors.full_messages
+      redirect_to '/dashboard'
+    end
+  end
+
 
 	private
 
@@ -96,6 +111,10 @@ class AccountsController < ApplicationController
 
     def pub_params
       params.require(:publication).permit(:image, :content)
+    end
+
+    def comment_params
+      params.require(:comment).permit(:content )
     end
 
 end
