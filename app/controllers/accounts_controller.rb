@@ -38,6 +38,9 @@ class AccountsController < ApplicationController
   		render "accounts/edit"
   	end
   end
+	def edit
+		@publication = Publication.find(params[:id])
+	end
 	def dashboard
 		@user = User.find_by(id:session[:current_user_id])
 		@publications = Publication.all
