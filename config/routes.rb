@@ -13,7 +13,9 @@ Rails.application.routes.draw do
   delete '/logout', to: 'accounts#destroy', as: 'destroy'
   get 'publication/confirm', to: 'accounts#confirm', as: 'confirm'
   post 'publication/confirm', to: 'accounts#confirm', as: 'confirme'
-
-
+  get  '*path', controller: 'application', action: 'render_404'
+  post '*path', controller: 'application', action: 'render_404'
+  get  '*path', controller: 'application', action: 'render_500'
+  post '*path', controller: 'application', action: 'render_500'
   delete '/publication/:id', to: 'accounts#destroy_pub', as: 'destroypub'
 end
