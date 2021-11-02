@@ -9,6 +9,7 @@ class AccountsController < ApplicationController
 
 	end
 
+
 	def sign_up_form
 
 		@user = User.new(user_params)
@@ -43,7 +44,22 @@ class AccountsController < ApplicationController
 
   end
 
-  def dashboard
+  def update
+  	@publication = Publication.find(params[:id])
+  	if @publication.update(content: params[:content])
+  		redirect_to '/dashboard'
+  	else
+  		render "accounts/edit"
+  	end
+  end
+
+
+
+
+
+
+	def dashboard
+
 		@user = User.find_by(id:session[:current_user_id])
 		@publications = Publication.all
 		@publication = Publication.new
@@ -51,17 +67,12 @@ class AccountsController < ApplicationController
 		@commentaires = Commentaire.all
 		@users = User.all
 		render "accounts/dashboard", layout: "layout"
+
 	end
 
-  def create_publication
+	def create_publication
 		@publication = Publication.new(pub_params)
-		render "accounts/confirm"
-	end
-
-	def confirm
-    @publication = Publication.new(pub_params)
-
-    @publication.user_id = session[:current_user_id]
+		@publication.user_id = session[:current_user_id]
 		@publication.published_at = Time.now
 
 		if @publication.save
@@ -72,18 +83,11 @@ class AccountsController < ApplicationController
       flash[:register_pub_errors] = @publication.errors.full_messages
       redirect_to '/dashboard'
     end
-  end
+	end
 
-  def update
-  	@publication = Publication.find(params[:id])
-  	if @publication.update(content: params[:content])
-  		redirect_to '/dashboard'
-  	else
-  		render "accounts/edit"
-  	end
-  end
 
-  def comment
+	def comment
+
 		@comment = Commentaire.new(comment_params)
 		@comment.user_id = session[:current_user_id]
 		@comment.published_at = Time.now
@@ -96,7 +100,10 @@ class AccountsController < ApplicationController
       flash[:register_comment_errors] = @comment.errors.full_messages
       redirect_to '/dashboard'
     end
+
   end
+
+
 
   def destroy_pub
     @publication = Publication.find(params[:id])
@@ -108,8 +115,6 @@ class AccountsController < ApplicationController
       format.json { head :no_content }
     end
   end
-
-
 
 	private
 
@@ -125,8 +130,13 @@ class AccountsController < ApplicationController
       params.require(:publication).permit(:image, :content)
     end
 
+    def pub2_params
+      params.require(:publication).permit(:content)
+    end
+
     def comment_params
       params.require(:comment).permit(:content )
     end
+
 
 end
