@@ -32,7 +32,7 @@ class AccountsController < ApplicationController
   end
   def update
   	@publication = Publication.find(params[:id])
-  	if @publication.update(content: params[:content])
+  	if @publication.update(image: params[:image], content: params[:content])
   		redirect_to '/dashboard'
   	else
   		render "accounts/edit"
