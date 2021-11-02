@@ -98,6 +98,18 @@ class AccountsController < ApplicationController
     end
   end
 
+  def destroy_pub
+    @publication = Publication.find(params[:id])
+
+    @publication.destroy
+
+    respond_to do |format|
+      format.html { redirect_to dashboard_url }
+      format.json { head :no_content }
+    end
+  end
+
+
 
 	private
 
