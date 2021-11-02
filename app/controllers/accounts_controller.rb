@@ -43,6 +43,16 @@ class AccountsController < ApplicationController
 
   end
 
+  def dashboard
+		@user = User.find_by(id:session[:current_user_id])
+		@publications = Publication.all
+		@publication = Publication.new
+		@comment = Commentaire.new
+		@commentaires = Commentaire.all
+		@users = User.all
+		render "accounts/dashboard", layout: "layout"
+	end
+
   def create_publication
 		@publication = Publication.new(pub_params)
 		render "accounts/confirm"
@@ -62,6 +72,15 @@ class AccountsController < ApplicationController
       flash[:register_pub_errors] = @publication.errors.full_messages
       redirect_to '/dashboard'
     end
+  end
+
+  def update
+  	@publication = Publication.find(params[:id])
+  	if @publication.update(content: params[:content])
+  		redirect_to '/dashboard'
+  	else
+  		render "accounts/edit"
+  	end
   end
 
 
