@@ -50,7 +50,15 @@ class AccountsController < ApplicationController
 		@users = User.all
 		render "accounts/dashboard", layout: "layout"
 	end
-	def create_publication
+	def create_publication_form
+		@publication = Publication.new(pub_params)
+		render "accounts/confirm"
+	end
+	def confirm_get
+		@publication = Publication.new(pub_params)
+		render "accounts/confirm"
+	end
+	def confirm
 		@publication = Publication.new(pub_params)
 		@publication.user_id = session[:current_user_id]
 		@publication.published_at = Time.now

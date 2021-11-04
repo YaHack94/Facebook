@@ -13,8 +13,8 @@ Rails.application.routes.draw do
   #post '/publication_edited/:id', to: 'accounts#update', as: 'editform'
   post '/sign_up_form', to: 'accounts#sign_up_form', as: 'signupform'
   post '/login', to: 'accounts#login', as: 'login'
-  get '/publication', to: 'accounts#create_publication_get'
-  post '/publication', to: 'accounts#create_publication', as: 'pubcreate'
+  get '/publication', to: 'accounts#create_publication', as: "newpub"
+  post '/publication', to: 'accounts#create_publication_form', as: 'pubcreate'
   post '/commentaire', to: 'accounts#comment', as: 'comment'
   get '/dashboard', to: 'accounts#dashboard', as: 'dashboard'
   delete '/logout', to: 'accounts#destroy', as: 'destroy'
