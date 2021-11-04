@@ -182,6 +182,12 @@
 
                     <%end%>
 
+                    <% if flash[:pub_update]%>
+
+                        <p class="alert alert-success"> <%= flash[:pub_update]%></p>
+
+                    <%end%>
+
             </div>
             <div class="errors">
                     <% if flash[:register_comment]%>

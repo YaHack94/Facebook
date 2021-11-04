@@ -65,10 +65,10 @@
                       <button class="btn btn-warning" data-mdb-toggle="modal"
                       data-mdb-target="#comment">Commenter</button>
 
-                        <br><br><%= button_to 'Modifier', editform_path(publication), class: "btn btn-success" %>
+                        <br><br><%= link_to 'Modifier', edit_path(publication), class: "btn btn-success" %>
                   &nbsp;
 
-                  <%= button_to 'Supprimer', destroypub_path(publication), class: "btn btn-danger",  :method => :delete, :confirm => "Are you sure?" %>
+                  <%= link_to 'Supprimer', destroypub_path(publication), class: "btn btn-danger",  :method => :delete, :confirm => "Are you sure?" %>
 
                 <% else %>
 

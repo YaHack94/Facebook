@@ -1,10 +1,15 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  #resources :publications
   get '/', to: 'generals#index', as: 'index'
   get '/sign_up', to: 'accounts#sign_up', as: 'signup'
-  get 'publication/:id/edit', to: 'accounts#edit', as: 'editform'
-  post 'publication/:id/edit', to: 'accounts#edit'
-  post 'publication/:id/edit', to: 'accounts#update', as: 'modifier'
+  #post '/publication/modify/:id', to: 'publications#edit'
+  get '/publication/modify/:id', to: 'publications#edit', as: 'edit'
+  post '/publication/modify/:id', to: 'publications#editform', as: 'editform'
+  get 'publication/modify/:id', to: 'publications#update'
+  post 'publication/modify/:id', to: 'publications#edit'
+  get 'publication/modify/:id', to: 'publications#update'
+  patch 'publication/modify/:id', to: 'publications#update', as: 'modifier'
   #post '/publication_edited/:id', to: 'accounts#update', as: 'editform'
   post '/sign_up_form', to: 'accounts#sign_up_form', as: 'signupform'
   post '/login', to: 'accounts#login', as: 'login'

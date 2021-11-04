@@ -1,5 +1,5 @@
 
-  <%= form_with( model:@publication, local: true) do |form| %>
+  <%= form_with( method: "post", model:@publication, local: true, url: editform_path) do |form| %>
     <div class="form-outline mb-4">
       <%= image_tag(@publication.image.url) if @publication.image && @publication.image.url %>
       <%= form.file_field :image, class: "form-control" %>
