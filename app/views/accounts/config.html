@@ -4,16 +4,4 @@ validates :name, presence: true, length: { maximum: 30 }
   has_secure_password
   validates :password, length: { minimum: 6 }
   before_validation { email.downcase! }
-
-
-
-
-
-  
-
-
-
-  
-
-
-      add_index :users, :email, unique: true
+  add_index :users, :email, unique: true

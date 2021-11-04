@@ -20,15 +20,10 @@
     <title>Confirmation</title>
   </head>
   <body>
-
-
-
     <div class="container mt-44">
-
         <h2 class="text-center mb-8">Confirmer votre Publlication</h2>
       <div class="row mt-48 text-center">
         <div class="col-md-4">
-
         </div>
         <div class="col-md-4">
           <img src="<%= @publication.image %>"> <hr>
@@ -36,23 +31,14 @@
           <%= @publication.content %>
         </div>
         <div class="col-md-4">
-
         </div>
-
-
-
-
         <%= form_with(model: @publication, local: true, url: confirme_path) do |form| %>
         <%= form.hidden_field :image %>
         <%= form.hidden_field :content %>
         <%= form.submit %>
         <% end %>
       </div>
-
     </div>
-
-
-
     <script
       type="text/javascript"
       src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.js"
